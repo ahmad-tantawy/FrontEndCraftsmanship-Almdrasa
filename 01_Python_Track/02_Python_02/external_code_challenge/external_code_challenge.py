@@ -1,6 +1,6 @@
 from modules import calculate
 import math
-import random
+import random2
 
 try:
     # Ask the user to enter two numbers, and enter the operation they want to perform.
@@ -26,7 +26,7 @@ try:
     elif operation == 'sqr':
         result = math.sqrt(num1)
     elif operation == 'random':   # Use random 2 module from pypi.
-        result = random.randint(num1, num2)
+        result = random2.randint(num1, num2)
     print(f"result: {result}")
 
 except ValueError:
