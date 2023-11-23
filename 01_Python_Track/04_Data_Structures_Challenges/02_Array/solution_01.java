@@ -93,7 +93,6 @@ class Main {
                 max = a[i];
             }
         }
-
         // Returning a Pair containing max at key and min at value
         return new pair(min, max);
     }
