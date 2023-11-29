@@ -1,34 +1,37 @@
-// import java.util.Stack;
+// import java.util.*;
 /*
- * Implement Queue using Stack class.
+ * Implement Queue using ArrayDeque Deque interface methods only.
+ * ArrayDeque extends Deque which extends Queue interface. It has methods for both
+ * Queue & Deque.
  * 
- * Your goal is to create Custom Queue (QueueUsingStacks). It implements a queue behavior
- * using ONE OR MORE stack objects. You can create as many Stack objects internally as you need.
+ * Your goal is to create Custom Queue class (MyQueue) using only Deque methods.
+ * We can only implement the version that return null (Doesn't throw exceptions) if
+ * operation fails.
  * 
- * You can ONLY use any of the following methods from Stack class
- * empty => Check if stack is empty
- * peek => Gets the element at the top of the stack
- * push => Add element to the stack
- * pop => Remove element from stack with LIFO behavior (Last In First Out)
+ * You can ONLY use any of the following methods from Deque interface
+ * offerFirst => Add to the beginning
+ * offerLast => Add to the end
+ * pollFirst => Remove from the beginning
+ * pollLast => Remove from the end
+ * peekFirst => Get the first element without removing
+ * peekLast => Get the last element without removing
  * 
- * DO NOT USE any other methods to implement this class and Do not use Dequeue objects.
+ * DO NOT USE any other methods to implement this class. You can define any other properties
+ * to your own class as you need.
  * 
- * You can find Stack Java class definition here:
- * https://docs.oracle.com/javase/7/docs/api/java/util/Stack.html
+ * You can find Deque definition here:
+ * https://docs.oracle.com/javase/7/docs/api/java/util/Deque.html
  * 
- * All Operations much has AMORTIZED Time Complexity O(1).
- * 
- * TIP: This is a tricky problem. You need to focus on the difference between
- * FIFO (Queue) and LIFO (Stack) so that elements exit the Queue in the correct order.
+ * All Operations much be O(1).
  */
-class QueueUsingStacks {
-    public QueueUsingStacks() {
+class MyQueue {
+    public MyQueue() {
         // Implement this method.
     }
 
     /**
-     * Returns the number of elements in the Collection
-     * @return the number of elements in the Collection.
+     * Returns the number of elements in the Queue
+     * @return the number of elements in the Queue.
      */
     public int size() {
         // Implement this method.
@@ -36,8 +39,8 @@ class QueueUsingStacks {
     }
 
     /**
-     * Returns whether the collection has no elements.
-     * @return True if the collection has no elements. False otherwise.
+     * Returns whether the queue has no elements.
+     * @return True if the queue has no elements. False otherwise.
      */
     public boolean empty() {
         // Implement this method
@@ -91,7 +94,7 @@ class Main {
     }
 
     private static void checkQueue(Integer[] expected) {
-        QueueUsingStacks queue = new QueueUsingStacks();
+        MyQueue queue = new MyQueue();
         System.out.println("Check Initial Queue status");
         assertSize(0, queue);
 
@@ -134,7 +137,7 @@ class Main {
         System.out.println();
     }
 
-    public static void assertSize(int expected, QueueUsingStacks queue) {
+    public static void assertSize(int expected, MyQueue queue) {
         if (queue.size() == expected) {
             System.out.println("PASS! Queue size check");
         } else {
