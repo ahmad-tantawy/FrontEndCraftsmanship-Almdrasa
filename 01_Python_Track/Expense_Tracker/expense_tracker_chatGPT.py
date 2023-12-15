@@ -3,6 +3,7 @@ import requests
 from tkinter import ttk
 from tkcalendar import Calendar
 from datetime import date
+import asyncio
 
 # MY API key for https://manage.exchangeratesapi.io/
 API_KEY = "90f906fc2c32db9808d019b78a1462c7"
@@ -15,6 +16,9 @@ table_data = []
 total_row = None
 # Global date
 today = date.today()
+
+# Cached exchange rates
+exchange_rates_cache = {}
 
 # Create GUI widgets
 def create_widgets(window):
@@ -125,35 +129,41 @@ def get_amount_and_currency(table_data):
         currency = entry.get('Currency', 'N/A')
         yield amount, currency
 
-def convert_to_usd(amount, base_currency):
-    params = {
-        "access_key": API_KEY,
-        "symbols": f'{base_currency},{BASE_CURRENCY}'
-    }
+async def convert_to_usd_async(amount, base_currency):
+    if base_currency == BASE_CURRENCY:
+        return amount
 
-    response = requests.get(API_URL, params=params)
-
-    if response.status_code == 200:
-        data = response.json()
-        conversion_rate = data['rates'][BASE_CURRENCY] / data['rates'][base_currency]
-        converted_amount = amount * conversion_rate
-        return converted_amount
+    if (amount, base_currency) in exchange_rates_cache:
+        conversion_rate = exchange_rates_cache[(amount, base_currency)]
     else:
-        # print(f'Error: {response.status_code}, {response.text}')
-        return None
+        params = {
+            "access_key": API_KEY,
+            "symbols": f'{base_currency},{BASE_CURRENCY}'
+        }
+
+        response = await loop.run_in_executor(None, lambda: requests.get(API_URL, params=params))
+
+        if response.status_code == 200:
+            data = response.json()
+            conversion_rate = data['rates'][BASE_CURRENCY] / data['rates'][base_currency]
+            exchange_rates_cache[(amount, base_currency)] = conversion_rate
+        else:
+            print(f'Error: {response.status_code}, {response.text}')
+            return None
+
+    converted_amount = amount * conversion_rate
+    return converted_amount
+
+async def do_conversion_async(table_data):
+    tasks = [convert_to_usd_async(amount, currency) for amount, currency in get_amount_and_currency(table_data)]
+    results = await asyncio.gather(*tasks)
+
+    total = sum(results)
+    return total
 
 def do_conversion(table_data):
-    converted_data = []
-
-    for amount, currency in get_amount_and_currency(table_data):
-        if currency != BASE_CURRENCY:
-            converted_amount = convert_to_usd(amount, currency)
-            if converted_amount is not None:
-                converted_data.append((converted_amount, BASE_CURRENCY))
-        else:
-            converted_data.append((amount, currency))
-
-    total = sum(amount for amount, _ in converted_data)
+    loop = asyncio.get_event_loop()
+    total = loop.run_until_complete(do_conversion_async(table_data))
     return total
 
 # Clear input fields to reset the form after successfully adding an expense
@@ -179,4 +189,6 @@ payment_combobox = widgets[4]
 tree = widgets[5]
 
 # Event loop
+loop = asyncio.get_event_loop()
 window.mainloop()
+loop.close()
