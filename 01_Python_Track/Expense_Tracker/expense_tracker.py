@@ -1,6 +1,9 @@
+# Link for Planning: https://miro.com/app/board/uXjVNIBQlTs=/?moveToWidget=3458764572581882756&cot=14
+# Final Project Expense Tracker
+
 import tkinter as tk
 import requests
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from tkcalendar import Calendar
 from datetime import date
 
@@ -85,6 +88,13 @@ def on_date_selected(cal, top, date_combobox):
 def add_expense(amount_entry, currency_combobox, category_combobox, date_combobox, payment_combobox, tree):
     # Get input values
     amount = amount_entry.get()
+     # Check if the amount is a valid number
+    try:
+        float(amount)
+    except ValueError:
+        # Display an error message
+        messagebox.showerror("Error", "Invalid amount. Please enter a valid number.")
+        return
     currency = currency_combobox.get()
     category = category_combobox.get()
     date = date_combobox.get()
@@ -109,10 +119,10 @@ def update_total_amount(tree):
     # Check if a total row already exists
     if total_row:
         tree.move(total_row, "", "end")  # Move total row to end
-        tree.item(total_row, values=("", "Total", total_amount, "USD"))
+        tree.item(total_row, values=(total_amount, "USD"))
     else:
         # Insert a new total row at the end
-        total_row = tree.insert("", "end", text="Total", values=("", "Total", total_amount, "USD"))
+        total_row = tree.insert("", "end", text="Total", values=(total_amount, "USD"))
         tree.tag_configure("total_row", font=("bold"), background="gray")
         tree.item(total_row, tags=("total_row",))
 
@@ -136,10 +146,10 @@ def convert_to_usd(amount, base_currency):
     if response.status_code == 200:
         data = response.json()
         conversion_rate = data['rates'][BASE_CURRENCY] / data['rates'][base_currency]
-        converted_amount = amount * conversion_rate
+
+        converted_amount = round(amount * conversion_rate, 2)  # Limit to two digits after the decimal point
         return converted_amount
     else:
-        # print(f'Error: {response.status_code}, {response.text}')
         return None
 
 def do_conversion(table_data):
