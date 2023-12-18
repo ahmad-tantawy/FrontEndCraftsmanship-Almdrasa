@@ -1,0 +1,73 @@
+/* CSS Fundamentals Challenge 1 */
+
+body {
+  font-family: sans-serif;
+  line-height: 1.4;
+}
+
+.course {
+  width: 600px;
+  border: 4px solid #000;
+  border-radius: 3px;
+  padding: 20px;
+}
+
+.course-title {
+  font-size: 22px;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 10px 0;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #0043ff;
+}
+
+.course-img {
+  border-radius: 3px;
+}
+
+.course-price {
+  font-size: 24px;
+}
+
+.course-description {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #808080;
+}
+
+.course-link:link,
+.course-link:visited {
+  color: #000;
+}
+
+.course-link:hover,
+.course-link:active {
+  text-decoration: none;
+}
+
+.course-list-title {
+  font-size: 16px;
+  text-transform: capitalize;
+}
+
+.course-list {
+  list-style: square;
+}
+
+.course-button {
+  font-size: 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #0043ff;
+  transition: background 0.3s;
+}
+
+.course-button:hover {
+  background-color: #4777ff;
+}
