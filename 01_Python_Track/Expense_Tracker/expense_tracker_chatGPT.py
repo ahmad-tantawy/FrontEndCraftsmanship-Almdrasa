@@ -55,35 +55,67 @@ def create_widgets(window):
 
     # Grid labels in the window
     for i, label_text in enumerate(labels):
-        tk.Label(window, text=label_text, bg="#1c312a", fg="white").grid(row=i, column=0, padx=50, pady=5, sticky="w")
+        tk.Label(window, text=label_text, bg="#1c313a", fg="white").grid(row=i, column=0, padx=50, pady=5, sticky="w")
 
     # Entry and Combobox widgets
-    amount_entry = tk.Entry(window, width=31, bg="#34499e", fg="white")
+    amount_entry = tk.Entry(window, width=31, bg="#34495e", fg="white")
     amount_entry.grid(row=0, column=1, padx=0, pady=5)
 
-    currency_combobox = ttk.Combobox(window, width=28, values=["USD", "EUR", "JPY", "GBP", "CHF"])
+    # Style configuration
+    style = ttk.Style()
+    style.theme_use("default")
+
+    style.configure("Custom.TCombobox", fieldbackground="#34495e", foreground="white")
+    style.map("Custom.TCombobox", fieldbackground=[("readonly", "#34495e")])
+
+    currency_combobox = ttk.Combobox(
+        window,
+        width=29,
+        values=["USD", "EUR", "JPY", "GBP", "CHF"],
+        style="Custom.TCombobox"
+    )
     currency_combobox.grid(row=1, column=1, padx=5, pady=5)
     currency_combobox.set("USD")
 
-    category_combobox = ttk.Combobox(window, width=28, values=["Life Expenses", "Electricity", "Gas", "Rental", "Grocery", "Savings", "Education", "Charity"])
+    category_combobox = ttk.Combobox(
+        window,
+        width=29,
+        values=["Life Expenses", "Electricity", "Gas", "Rental", "Grocery", "Savings", "Education", "Charity"],
+        style="Custom.TCombobox"
+    )
     category_combobox.grid(row=2, column=1, padx=5, pady=5)
     category_combobox.set("Education")
 
-    date_combobox = ttk.Combobox(window, width=28, state="readonly")
+    date_combobox = ttk.Combobox(
+        window,
+        width=29,
+        state="readonly",
+        style="Custom.TCombobox"
+    )
     date_combobox.grid(row=3, column=1, padx=5, pady=5)
     date_combobox.set(today)
     date_combobox.bind("<Button-1>", lambda event: open_calendar(date_combobox))
 
-    payment_combobox = ttk.Combobox(window, width=28, values=["Cash", "Credit Card", "Paypal"])
+    payment_combobox = ttk.Combobox(
+        window,
+        width=29,
+        values=["Cash", "Credit Card", "Paypal"],
+        style="Custom.TCombobox"
+    )
     payment_combobox.grid(row=4, column=1, padx=5, pady=5)
     payment_combobox.set("Paypal")
 
     # Create a frame for the treeview with a border
-    add_button = ttk.Button(window, text="Add Expense  ▼", command=lambda: add_expense(amount_entry, currency_combobox, category_combobox, date_combobox, payment_combobox, tree))
+    add_button = ttk.Button(window, width=20, text="ADD EXPENSE  ▼", command=lambda: add_expense(amount_entry, currency_combobox, category_combobox, date_combobox, payment_combobox, tree))
     add_button.grid(row=5, column=1, pady=5, padx=5)
 
+    # Set background color for the button
+    style.configure("Custom.TButton", background="#34494e")
+    style.map("TButton", background=[("active", "gray")])
+    add_button.configure(style="Custom.TButton")
+
     # Create a frame for the treeview with a border
-    tree_frame = tk.Frame(window, borderwidth=3, relief="solid", highlightbackground="#34499e", highlightthickness=3)
+    tree_frame = tk.Frame(window, borderwidth=3, relief="solid", highlightbackground="white", highlightthickness=1)
     tree_frame.grid(row=7, column=0, columnspan=2, padx=5, pady=5, sticky="nsew")
 
     # Create the treeview inside the frame
@@ -96,7 +128,6 @@ def create_widgets(window):
     tree.column("Category", width=100, anchor=tk.CENTER)
     tree.column("Date", width=100, anchor=tk.CENTER)
     tree.column("Payment Method", width=100, anchor=tk.CENTER)
-
     # Set column headings
     tree.heading("#0", text="", anchor=tk.CENTER)
     tree.heading("Amount", text="Amount")
@@ -105,7 +136,7 @@ def create_widgets(window):
     tree.heading("Date", text="Date")
     tree.heading("Payment Method", text="Payment Method")
 
-    tree.grid(row=0, column=0, sticky="nsew")  # Adjust row and column based on your layout
+    tree.grid(row=0, column=0, sticky="nsew")
 
     developer_label = Label(window, text="</> by Ahmad Tantawy", fg="white", bg="#1c313a")
     developer_label.grid(row=8, column=0, columnspan=5, pady=1, padx=8, sticky="se")
@@ -177,10 +208,36 @@ def add_expense(amount_entry, currency_combobox, category_combobox, date_combobo
         # Display an error message
         messagebox.showerror("Error", "Invalid amount. Please enter a valid number.")
         return
+    
+    # Get input values
     currency = currency_combobox.get()
+    # Check if the currency is a valid value
+    valid_currencies = ["USD", "EUR", "JPY", "GBP", "CHF"]
+    if currency not in valid_currencies:
+        # Display an error message
+        messagebox.showerror("Error", "Please select a valid currency.")
+        return
+ 
+    # Get input values
     category = category_combobox.get()
+    # Check if the category is a valid value
+    valid_categories = ["Life Expenses", "Electricity", "Gas", "Rental", "Grocery", "Savings", "Education", "Charity"]
+    if category not in valid_categories:
+        # Display an error message
+        messagebox.showerror("Error", "Please select a valid category.")
+        return
+
+    # Get input values
     date = date_combobox.get()
+
+    # Get input values
     payment_method = payment_combobox.get()
+    # Check if the payment method is a valid value
+    valid_payment_methods = ["Cash", "Credit Card", "Paypal"]
+    if payment_method not in valid_payment_methods:
+        # Display an error message
+        messagebox.showerror("Error", "Please select a valid payment method.")    
+        return
 
     # Input fields are filled
     if amount and currency and category and date and payment_method:
@@ -214,7 +271,7 @@ def update_total_amount(tree):
     else:
         # Insert a new total row at the end
         total_row = tree.insert("", "end", text="Total", values=(total_amount, "USD"))
-        tree.tag_configure("total_row", font=("bold"), background="#34499e", foreground="white")
+        tree.tag_configure("total_row", font=("bold"), background="#34495e", foreground="white")
         tree.item(total_row, tags=("total_row",))
 
     # Scroll to the Total row when the table becomes larger
@@ -324,7 +381,7 @@ def clear_input_fields(amount_entry, currency_combobox, category_combobox, date_
 window = tk.Tk()
 window.title("Expense Tracker ❖")
 window.configure(bg="#1c313a")
-window.geometry("524x464")
+window.geometry("524x460")
 
 # Create GUI widgets using the create_widgets function
 widgets = create_widgets(window)
