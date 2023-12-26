@@ -72,6 +72,7 @@ html {
 }
 /* End CSS Reset */
 
+/* Header */
 body {
   font-size: 1.6rem;
   font-family: var(--font-family-raleway);
@@ -115,6 +116,7 @@ body {
   text-decoration: underline;
   color: var(--color-text);
 }
+/* End Header */
 
 /* Toggle */
 .toggle {
@@ -163,3 +165,63 @@ body {
   transform: translateX(2.1rem);
 }
 /* End toggle */
+
+/* Global Style */
+.section {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  /* align-items: start; */
+}
+/* End Global Style */
+
+/* Bio */
+.bio {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7.4rem;
+}
+
+.bio__heading {
+  font-size: var(--font-size-70);
+  font-weight: var(--font-weight-bold);
+}
+
+.bio__objective {
+  font-family: var(--font-family-poppins);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-20);
+  margin: 3rem 0 8rem;
+}
+
+.bio__name {
+  font-weight: var(--font-weight-semi-bold);
+}
+
+.bio__github {
+  color: var(--color-blue);
+}
+
+.bio__linkedin {
+  color: var(--color-dark-blue);
+}
+
+.bio__codepen {
+  color: var(--color-green);
+}
+
+.bio__links {
+  font-size: 2.4rem;
+  font-weight: var(--font-weight-semi-bold);
+  text-decoration: none;
+}
+
+.say-hi-link {
+  background-color: var(--color-link-bg);
+  color: var(--color-white);
+  padding: 0.7rem 4.7rem;
+}
+
+.find-out-link {
+  padding: 0.7rem 0;
+  margin-inline-start: 1.4rem;
+}
+/* End Bio */
