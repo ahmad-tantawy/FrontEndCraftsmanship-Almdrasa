@@ -81,8 +81,11 @@ body {
 }
 
 .container {
+  display: grid;
+  row-gap: 11rem;
   margin: 0 auto;
-  max-width: var(--container-width);
+  max-width: calc(var(--container-width) + calc(var(--gutter) * 2));
+  padding-inline: var(--gutter);
 }
 
 .header {
@@ -197,11 +200,11 @@ body {
 }
 
 .bio__github {
-  color: var(--color-blue);
+  color: var(--color-dark-blue);
 }
 
 .bio__linkedin {
-  color: var(--color-dark-blue);
+  color: var(--color-light-blue);
 }
 
 .bio__codepen {
@@ -223,5 +226,49 @@ body {
 .find-out-link {
   padding: 0.7rem 0;
   margin-inline-start: 1.4rem;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0.5rem);
+  }
+  35% {
+    transform: translateY(-0.5rem);
+  }
+  70% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.bio__arrow {
+  display: inline-block;
+  animation: jump 1s infinite alternate ease-in-out;
+}
+
+.bio__pic-content {
+  display: flex;
+  position: relative;
+  align-items: flex-end;
+  justify-self: end;
+  margin: auto 0;
+}
+
+.bio__pic-content::before {
+  content: "";
+  position: absolute;
+  background-color: var(--color-box-img);
+  width: 100%;
+  height: 46rem;
+  z-index: -1;
+  border-radius: 1.8rem;
+  box-shadow: 2.17543px 8.7017px 38.0699px rgba(0, 0, 0, 0.15);
+}
+
+.bio__pic {
+  width: 42.7rem;
+  border-radius: 1.8rem;
 }
 /* End Bio */
