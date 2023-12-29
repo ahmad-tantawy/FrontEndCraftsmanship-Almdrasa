@@ -72,7 +72,6 @@ html {
 }
 /* End CSS Reset */
 
-/* Header */
 body {
   font-size: 1.6rem;
   font-family: var(--font-family-raleway);
@@ -88,6 +87,37 @@ body {
   padding-inline: var(--gutter);
 }
 
+/* Global Style */
+.section {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  /* align-items: start; */
+}
+
+.section--with-bg {
+  padding: 11rem 0;
+}
+
+.section--with-bg::before {
+  content: "";
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  background-color: var(--color-grey);
+  justify-self: center;
+  z-index: -1;
+}
+
+.h2-heading {
+  font-size: var(--font-size-65);
+  font-weight: var(--font-weight-bold);
+  grid-column: 1/-1;
+  margin-bottom: 8.7rem;
+}
+/* End Global Style */
+
+/* Header */
 .header {
   position: relative;
   display: flex;
@@ -168,14 +198,6 @@ body {
   transform: translateX(2.1rem);
 }
 /* End toggle */
-
-/* Global Style */
-.section {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  /* align-items: start; */
-}
-/* End Global Style */
 
 /* Bio */
 .bio {
@@ -272,3 +294,31 @@ body {
   border-radius: 1.8rem;
 }
 /* End Bio */
+
+/* Skills */
+.skills__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 5rem;
+}
+
+.skills__item {
+  transition: var(--transition-timing);
+  user-select: none;
+}
+
+.skills__title {
+  font-size: var(--font-size-38);
+  font-weight: var(--font-weight-semi-bold);
+}
+
+.skills__years {
+  display: inline-block;
+  font-size: var(--font-size-20);
+  margin-top: 1rem;
+}
+
+.skills__item:hover {
+  text-shadow: 0 0 2px var(--color-green);
+}
+/* End Skills */
