@@ -87,6 +87,16 @@ body {
   padding-inline: var(--gutter);
 }
 
+.video-loop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 0.08;
+  z-index: -1;
+}
+
 /* Global Style */
 .section {
   position: relative;
@@ -322,3 +332,15 @@ body {
   text-shadow: 0 0 2px var(--color-green);
 }
 /* End Skills */
+
+/* Media */
+.media {
+  align-items: center;
+  justify-content: center;
+}
+
+.media__video {
+  max-width: 100%;
+  border-radius: 1.8rem;
+}
+/* End Media */
