@@ -124,6 +124,7 @@ body {
   font-weight: var(--font-weight-bold);
   grid-column: 1/-1;
   margin-bottom: 8.7rem;
+  text-transform: uppercase;
 }
 
 .h3-heading {
@@ -390,3 +391,25 @@ body {
   margin-left: 0.6rem;
 }
 /* End Projects */
+
+/* Clients */
+.clients__opinions {
+  grid-column: 1 / -1;
+  font-size: var(--font-size-40);
+  line-height: 1.4;
+}
+
+.clients__wrapper {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  height: 100%;
+}
+
+.clients__opinion {
+  flex-basis: 100%;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  margin: 2rem 3rem; /*..............note*/
+}
+/* End Clients */
