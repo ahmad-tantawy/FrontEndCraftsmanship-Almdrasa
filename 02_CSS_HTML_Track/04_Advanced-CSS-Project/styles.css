@@ -527,3 +527,53 @@ html:has(.toggle__checkbox:checked) .contact__social {
     contrast(102%);
 }
 /* End Theme */
+
+/* Responsive */
+@media (max-width: 1000px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    row-gap: 8rem;
+  }
+
+  .section {
+    grid-template-columns: 1fr;
+  }
+
+  .bio__pic-content {
+    grid-row: 1;
+    justify-self: center;
+    margin-bottom: 4rem;
+  }
+
+  .skills__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .projects__main {
+    grid-template-columns: 1fr;
+    row-gap: 6rem;
+    justify-items: center;
+  }
+
+  .projects__data:nth-of-type(2) {
+    order: 1;
+  }
+
+  .clients__opinion {
+    font-size: var(--font-size-24);
+  }
+
+  .contact {
+    row-gap: 6rem;
+  }
+
+  .contact__formContent {
+    order: -1;
+  }
+}
+/* End Responsive */
