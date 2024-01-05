@@ -1,0 +1,14 @@
+html:has(.toggle__checkbox:checked) {
+  --color-grey: #080808;
+  --color-background: var(--color-black);
+  --color-text: var(--color-white);
+  --color-box-img: var(--color-green);
+  --color-link-bg: var(--color-green);
+  --color-input-border: var(--color-white);
+  --color-footer-border: var(--color-green);
+}
+
+html:has(.toggle__checkbox:checked) .contact__social {
+  filter: invert(99%) sepia(0%) saturate(0%) hue-rotate(310deg) brightness(113%)
+    contrast(102%);
+}
