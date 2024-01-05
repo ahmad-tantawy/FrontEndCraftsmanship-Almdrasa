@@ -5,9 +5,9 @@
   "java.debug.settings.onBuildFailureProceed": true,
   "liveSassCompile.settings.formats": [
     {
-      "format": "expanded",
+      "format": "compressed",
       "extensionName": ".css",
-      "savePath": null,
+      "savePath": "/02_CSS_HTML_Track/04_Advanced-CSS-Project/styles",
       "savePathReplacementPairs": null
     }
   ]
