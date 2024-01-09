@@ -59,6 +59,52 @@ body {
   background-repeat: repeat;
 }
 
+.lights-control {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  gap: 1rem;
+  top: 2rem;
+}
+
+.lights_header {
+  color: #000;
+  text-transform: capitalize;
+}
+
+.lights-input {
+  display: none;
+}
+
+.lights-label {
+  width: 3.8rem;
+  height: 1.9rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  padding: 0.3rem 0.4rem;
+  background-color: black;
+  transition: all 0.7s ease-out;
+}
+
+.lights-label::after {
+  content: "";
+  display: block;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  transition: background-color 0.3s;
+}
+
+.lights-input:checked + .lights-label {
+  background-color: var(--color-white);
+}
+
+.lights-input:checked + .lights-label::after {
+  transform: translateX(1.7rem);
+  background: linear-gradient(#468397, #0e2052);
+}
+
 .card {
   background-color: var(--color-white);
   display: flex;
@@ -70,6 +116,8 @@ body {
 }
 
 .top {
+  display: flex;
+  align-items: center;
   height: 10rem;
   background-color: #e5e5f7;
   background-size: 7px 7px;
@@ -80,6 +128,30 @@ body {
     #e5e5f7 0,
     #e5e5f7 50%
   );
+  overflow: hidden;
+}
+
+.party {
+  display: inline-block;
+  height: 100vh;
+  width: 100vw;
+}
+
+.container:has(.lights-input:checked) .party {
+  background: linear-gradient(#33ccff, #1a1a1d, #0fc445);
+  animation: animate_bg 3s linear infinite;
+}
+
+@keyframes animate_bg {
+  from {
+    scale: 1.5;
+    transform: rotate(0deg);
+  }
+
+  to {
+    scale: 1.5;
+    transform: rotate(360deg);
+  }
 }
 
 .middle {
@@ -94,7 +166,34 @@ body {
   width: 12rem;
   height: 12rem;
   border: 0.4rem solid var(--color-white);
-  background-color: var(--color-white);
+  background: var(--color-white);
+}
+
+@keyframes animate_img {
+  0% {
+    border: 0;
+    box-shadow: 0 0 6px 1.5px #f0f075;
+  }
+  20% {
+    box-shadow: 0 0 6px 1.5px #75f075;
+  }
+  40% {
+    box-shadow: 0 0 6px 1.5px #75f0f0;
+  }
+  60% {
+    box-shadow: 0 0 6px 1.5px #7575f0;
+  }
+  80% {
+    box-shadow: 0 0 6px 1.5px #f075f0;
+  }
+  100% {
+    border: 0;
+    box-shadow: 0 0 6px 1.5px #f07575;
+  }
+}
+
+.container:has(.lights-input:checked) .pic {
+  animation: animate_img 1.5s infinite alternate;
 }
 
 .title {
